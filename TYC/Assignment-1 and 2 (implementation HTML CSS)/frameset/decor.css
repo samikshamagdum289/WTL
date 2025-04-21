@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ecc6dd;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #d55454;
+    transition: color 0.3s ease-in-out;
+}
+
+h1:hover, h2:hover {
+    color: #9c1c1c;
+}
+
+h1::before {
+    content: "🌟 ";
+    font-size: 20px;
+}
+
+h1::after {
+    content: " 🌟";
+    font-size: 20px;
+}
+
+h5 {
+    color: #635c50;
+    transition: color 0.3s ease-in-out;
+}
+
+h5:hover {
+    color: #453f35;
+}
+
+h5::before {
+    content: "🔹 ";
+    font-size: 14px;
+}
+
+img {
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+}
+
+img:hover {
+    transform: scale(1.1);
+}
+
+table {
+    width: 80%;
+    margin: 10px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: background 0.3s ease-in-out;
+}
+
+th {
+    background: #444;
+    color: white;
+}
+
+tr:first-child {
+    font-weight: bold;
+}
+
+tr:last-child {
+    font-style: italic;
+}
+
+tr:nth-child(even) {
+    background: #f1f1f1;
+}
+
+tr:hover {
+    background: #ddd;
+    transform: scale(1.01);
+}
+
+td::before {
+    content: "🔹 ";
+    font-size: 12px;
+    color: #444;
+}

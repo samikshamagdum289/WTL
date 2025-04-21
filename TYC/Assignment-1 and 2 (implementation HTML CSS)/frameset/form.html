@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Form</title>
+    <link rel="stylesheet" href="formcss.css">
+</head>
+<body>
+    <center>
+        <h1>Exam Form</h1>
+        <p>Fill in all details carefully.</p>
+
+        <form action="submit_form.php" method="post">
+            <h4>Full Name: <input type="text" name="fullname" placeholder="Enter your full name" required></h4>
+            <h4>Address: <input type="text" name="address" placeholder="Enter your address" required></h4>
+            <h4>Phone Number: <input type="tel" name="phone" placeholder="Enter phone number" pattern="[0-9]{10}" required></h4>
+            <h4>Email: <input type="email" name="email" placeholder="Enter email" required></h4>
+            <h4>Exam Seat No.: <input type="text" name="seat_no" placeholder="Enter exam seat number" required></h4>
+            <h4>Marks: <input type="number" name="marks" placeholder="Enter your marks" required></h4>
+            <h4>Date of Birth: <input type="date" name="dob" required></h4>
+            
+            <h4>Course Selection: 
+                <select name="course" required>
+                    <option value="">-- Select Course --</option>
+                    <option value="BSc">B.Sc</option>
+                    <option value="BTech">B.Tech</option>
+                    <option value="BBA">BBA</option>
+                    <option value="MBA">MBA</option>
+                </select>
+            </h4>
+            <br>
+
+
+            <h3>Select Programming Laguages:</h3>
+            <label><input type="checkbox" name="terms" required>C</label>
+            <label><input type="checkbox" name="terms" required>C++</label>
+            <label><input type="checkbox" name="terms" required>JAVA</label>
+            <label><input type="checkbox" name="terms" required>Python</label>
+            <br><br>
+
+
+            <h3>Select Gender:</h3>
+            <label><input type="radio" name="gender" value="male" required> Male</label>
+            <label><input type="radio" name="gender" value="female" required> Female</label>
+            <label><input type="radio" name="gender" value="other" required> Other</label>
+
+            <br><br>
+
+           
+            <label><input type="checkbox" name="terms" required> I accept the terms and conditions</label>
+            
+            <br><br>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </form>
+    </center>
+</body>
+</html>

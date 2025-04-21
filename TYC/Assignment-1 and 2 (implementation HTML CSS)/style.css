@@ -1,0 +1,13 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-family: Century;
+}
+
+.header{
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5,rgba(0,0,0,0.5)),url(../b.png));
+    height : 100 vh;
+    background-size: cover;
+    background-position: center;
+    min-height: 100px;
+}

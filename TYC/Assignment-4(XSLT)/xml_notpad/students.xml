@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="stud.xsl" ?>
+<?xml-stylesheet type="text/xsl" href="stylesheet.xsl" ?>
+
+
+<students>
+    <student roll_no="101">
+        <firstname>Amit</firstname>
+        <lastname>Sharma</lastname>  
+        <department>Engineering</department>  
+        <branch>Computer Science</branch>
+    </student>
+    <student roll_no="102">
+        <firstname>Pooja</firstname>
+        <lastname>Patil</lastname>
+        <department>Engineering</department>  
+        <branch>Information Technology</branch>
+    </student>
+    <student roll_no="103">
+        <firstname>Rohit</firstname>
+        <lastname>Deshmukh</lastname>
+        <department>Science</department>  
+        <branch>Physics</branch>
+    </student>
+</students>

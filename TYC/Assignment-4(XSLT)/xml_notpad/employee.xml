@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml-stylesheet type="text/css" href="emp.xml"?> -->
+<?xml-stylesheet type="text/xsl" href="emp.xsl" ?>
+
+<class>
+    <employee id="001">
+        <firstname>Pratik</firstname>
+        <lastname>Mane</lastname>  
+        <position>Manager</position>  
+        <salary>30000</salary>
+    </employee>
+    <employee id="024">
+        <firstname>parshwa</firstname>
+        <lastname>Dugge</lastname>
+        <position>Developer</position>  
+        <salary>40000</salary>
+    </employee>
+    <employee id="056">
+        <firstname>Samruddhi</firstname>
+        <lastname>Mithari</lastname>
+        <position>HR</position>  
+        <salary>50000</salary>
+    </employee>
+</class>

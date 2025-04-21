@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #d6bbd5;
+}
+
+center {
+    background: white;
+    padding: 50px;
+    border-radius: 10px;
+    width: 50%;
+    margin: 50px auto;
+}
+
+h1, h3 {
+    color: #333;
+}
+
+h1::before {
+    content: "✨ ";
+    font-size: 20px;
+}
+
+h1::after {
+    content: " ✨";
+    font-size: 20px;
+}
+
+p, h4, label {
+    color: #444;
+}
+
+p::first-letter {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2d79ca;
+}
+
+p {
+    font-size: 14px;
+}
+
+h4, label {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:first-child {
+    border: 2px solid #2d79ca;
+}
+
+input[type="text"]:last-child {
+    border: 2px solid #d55454;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+}
+
+input[type="text"]::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+button {
+    background: #2d79ca;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+button::before {
+    content: "👉 ";
+}
+
+button::after {
+    content: " 👈";
+}

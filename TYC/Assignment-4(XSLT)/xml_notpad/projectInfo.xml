@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<?xml-stylesheet type="text/css" href="proj.css"?> 
+<students>
+	<heading>Project Details</heading>
+	<student role="Leader"> 
+		<name>Samiksha Shankar magdum</name>  
+		<Role>Leader</Role> 
+		<rollNo>30</rollNo>
+		 
+	</student>
+	<student role="Frontend Developer">
+		<name>Pratik Anil mane</name>  
+		<Role>Developer</Role>  
+		<rollNo>34</rollNo> 
+	</student>
+	<student role="Backend Developer">
+		<name>Samruddhi Deepak Mithari</name>  
+		<Role>Developer</Role>  
+		<rollNo>44</rollNo> 
+	</student> 
+	<student role="Tester"> 
+		<name>Parshwa Rajendra Dugge</name> 
+		<Role>Tester</Role>    
+		<rollNo>38</rollNo>
+	</student> 
+</students>

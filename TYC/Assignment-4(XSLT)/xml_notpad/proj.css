@@ -1,0 +1,74 @@
+/* Style the entire document */
+students {
+    font-family: Arial, sans-serif;
+    display: block;
+    margin: 20px;
+}
+
+/* Style the heading */
+heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff0080;
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Style each student block */
+student {
+    display: block;
+    border: 2px solid #007bff;
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+/* Default role styling (for non-leaders) */
+student::before {
+    content: attr(role);
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: block;
+    width: fit-content;
+    margin-bottom: 5px;
+}
+
+/* Specific styling for the Leader */
+student[role="Leader"] {
+    border: 2px solid #21219f; /* Green border */
+    background-color: #e9f5e9; /* Light green background */
+}
+
+student[role="Leader"]::before {
+    background-color: #21219f; /* Green badge */
+}
+
+/* Style the student name */
+name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin: 5px 0;
+}
+
+/* Style the role */
+Role {
+    font-style: italic;
+    color: #555;
+    display: block;
+}
+
+/* Style the roll number */
+rollNo {
+    font-size: 16px;
+    color: #777;
+    display: block;
+    margin-top: 5px;
+}

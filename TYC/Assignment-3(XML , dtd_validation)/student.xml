@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE students [
+    <!ELEMENT students (student+)>
+    <!ELEMENT student (name, roll_no, department, branch)>
+    <!ATTLIST student id CDATA #REQUIRED>
+    <!ELEMENT name (#PCDATA)>
+    <!ELEMENT roll_no (#PCDATA)>
+    <!ELEMENT department (#PCDATA)>
+    <!ELEMENT branch (#PCDATA)>
+]>
+
+<students>
+    <student id="101">
+        <name>Amit Sharma</name>
+        <roll_no>21CS001</roll_no>
+        <department>Computer Science</department>
+        <branch>Software Engineering</branch>
+    </student>
+    <student id="102">
+        <name>Neha Dalal</name>
+        <roll_no>21CS002</roll_no>
+        <department>Computer Science</department>
+        <branch>Artificial Intelligence</branch>
+    </student>
+    <student id="103">
+        <name>Samruddhi Mithari</name>
+        <roll_no>21ME001</roll_no>
+        <department>Mechanical</department>
+        <branch>Automobile Engineering</branch>
+    </student>
+</students>

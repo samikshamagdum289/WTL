@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="lib.xsl"?>
+
+<library>
+    <book sr_no="001">
+        <name>Introduction to Algorithms</name>
+        <author>Thomas H. Cormen</author>
+        <price>750</price>
+        <year>2009</year>
+        <rating>4.8</rating>
+    </book>
+    <book sr_no="002">
+        <name>Clean Code</name>
+        <author>Robert C. Martin</author>
+        <price>850</price>
+        <year>2008</year>
+        <rating>4.7</rating>
+    </book>
+    <book sr_no="003">
+        <name>The Pragmatic Programmer</name>
+        <author>Andrew Hunt</author>
+        <price>900</price>
+        <year>1999</year>
+        <rating>4.9</rating>
+    </book>
+    <book sr_no="004">
+        <name>Design Patterns</name>
+        <author>Erich Gamma</author>
+        <price>780</price>
+        <year>1994</year>
+        <rating>4.6</rating>
+    </book>
+</library>
