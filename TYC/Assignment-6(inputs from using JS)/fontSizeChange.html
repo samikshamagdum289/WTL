@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Font Size Animation</title>
+  <style>
+    #text {
+      color: red;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<p id="text">D.Y.Patil College</p>
+
+<script>
+  let size = 10;           // Starting font size
+  let growing = true;      // Direction flag
+  const textElement = document.getElementById("text");
+
+  setInterval(() => {
+    textElement.style.fontSize = size + "px";
+
+    if (growing) {
+      size++;
+      if (size >= 30) growing = false;  // Max size
+    } else {
+      size--;
+      if (size <= 10) growing = true;   // Min size
+    }
+  }, 100);
+</script>
+
+</body>
+</html>

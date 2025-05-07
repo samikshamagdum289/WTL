@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <title>Student PG Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #004c70;
+            padding: 10px 20px;
+            color: white;
+        }
+        .nav-bar h2 {
+            margin: 0;
+        }
+        .nav-bar ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        .nav-bar a {
+            text-decoration: none;
+            color: white;
+        }
+        .submit-btn {
+            background: #0088cc;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        .pg-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .pg-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            position: relative;
+        }
+        /* Carousel */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            border-radius: 8px;
+        }
+        .carousel img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: none;
+        }
+        .carousel img.active {
+            display: block;
+        }
+        .carousel button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .carousel .prev {
+            left: 5px;
+        }
+        .carousel .next {
+            right: 5px;
+        }
+        /* Scrollable Availability Container */
+        .availability-container {
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            background: #fff;
+            scrollbar-width: thin;
+            scrollbar-color: #0088cc #f4f4f4;
+        }
+        .availability-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .availability-container::-webkit-scrollbar-track {
+            background: #f4f4f4;
+        }
+        .availability-container::-webkit-scrollbar-thumb {
+            background: #0088cc;
+            border-radius: 4px;
+        }
+        /* Bed Availability Section */
+        .bed-availability {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        /* Bed Indicator (Square Boxes) */
+        .bed {
+            width: 25px; /* Square shape */
+            height: 25px;
+            border-radius: 5px; /* Slight rounding */
+            border: 2px solid black; /* Border for visibility */
+            display: inline-block;
+        }
+        .booked {
+            background-color: red;
+        }
+        .unbooked {
+            background-color: green;
+        }
+        .pg-card h3 {
+            margin: 10px 0;
+        }
+        .pg-card .details {
+            font-size: 14px;
+            color: #555;
+        }
+        .pg-card .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .pg-card .rating {
+            color: gold;
+        }
+        .pg-card .like-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #ff3333;
+        }
+        .view-3d-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+            text-decoration: none;
+           
+        }
+        .view-proceed-btn{
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+/* Navbar setup */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: #004c70;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  color: white;
+  position: relative;
+}
+
+/* Left item */
+.nav-left .interactive-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Profile link */
+.interactive-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-link i {
+  transition: transform 0.3s ease, color 0.3s ease;
+  font-size: 20px;
+}
+
+.interactive-link span {
+  font-weight: 500;
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.interactive-link:hover {
+  background-color: #e6f0ff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  color: #007bff;
+}
+
+.interactive-link:hover i {
+  transform: scale(1.25);
+  color: #007bff;
+}
+
+.interactive-link:hover span {
+  letter-spacing: 0.5px;
+  color: #007bff;
+}
+
+/* Tooltip (optional) */
+.interactive-link::after {
+  content: "View your profile";
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  background-color: #007bff;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.interactive-link:hover::after {
+  opacity: 1;
+  bottom: -36px;
+}
+
+/* Center item */
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-center h2 {
+  margin: 0;
+  font-size: 22px;
+  color: white;
+}
+
+/* Right item */
+.nav-right .submit-btn {
+  padding: 8px 16px;
+  background-color: #1c8adb;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.sidenav {
+  height: 100%;
+  /* width: 0; */
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #004c70; /* dark blue */
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.6);
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidenav h2,
+.sidenav h3 {
+  margin-left: 20px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.sidenav a.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 30px;
+  text-decoration: none;
+  color: white;
+}
+
+.filter-section {
+  padding: 15px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.filter-section label {
+  display: block;
+  margin: 8px 0;
+  color: #f0f0f0;
+  font-size: 16px;
+}
+
+.accommodation-options input[type="checkbox"],
+.suitable-options input[type="checkbox"],
+.rent-options input[type="checkbox"],
+.facility-options input[type="checkbox"] {
+  margin: 0;
+  transform: scale(1.2);
+  accent-color: #e215b6;
+}   
+
+.openbtn {
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #001f3f;
+  color: white;
+  border: none;
+  margin: 10px;
+  border-radius: 5px;
+  transition: 0.3s;
+  position: fixed; /* or relative if needed */
+  left: 10px; /* push it 10px from the left side */
+  top: 80px; /* adjust if needed according to your header height */
+  margin: 0; /* remove any default margin */
+  z-index: 999; /* Ensure the button is always on top */
+
+}
+
+.openbtn:hover {
+  background-color: #005299;
+}
+
+input[type=range] {
+  /* width: 100%; */
+  margin: 0;
+}
+.accommodation-options label,
+.suitable-options label,
+.rent-options label,
+.facility-options label {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* small neat gap between checkbox and text */
+  margin-bottom: 10px;
+  color: #f0f0f0;
+  font-size: 16px;
+}
+
+#mainContent {
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+    margin-left: 0; /* Add this line if needed for adjusting layout when the sidebar is open */
+}
+
+
+.apply-button-wrapper {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.apply-filters-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.apply-filters-btn:hover {
+  background-color: #45a049;
+}
+
+
+
+
+
+  </style>
+</head>
+<body>
+    <header>
+        <div class="nav-bar">
+            <div class="nav-left">
+              <a href="profile.html" class="interactive-link">
+                <i class="fas fa-user-circle"></i>
+                <span>Profile</span>
+              </a>
+            </div>
+          
+            <div class="nav-center">
+              <h2>Available PG</h2>
+            </div>
+          
+            <div class="nav-right">
+              <a class="submit-btn" href="home.html">PG Profile</a>
+            </div>
+          </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      
+      
+      <div class="filter-section">
+        <h3>Accommodation For</h3>
+        <div class="accommodation-options">
+          <label><input type="checkbox" name="accommodation" value="male"> Male</label>
+          <label><input type="checkbox" name="accommodation" value="female"> Female</label>
+          <label><input type="checkbox" name="accommodation" value="both"> Both</label>
+        </div>
+      </div>
+    
+      <div class="filter-section">
+        <h3>Suitable For</h3>
+        <div class="suitable-options">
+          <label><input type="checkbox" name="suitable" value="students"> Students</label>
+          <label><input type="checkbox" name="suitable" value="working"> Working Professionals</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Rent</h3>
+        <div class="rent-options">
+          <label><input type="checkbox" name="rent" value="1500-1700"> ₹1500 - ₹1700</label>
+          <label><input type="checkbox" name="rent" value="1700-2000"> ₹1700 - ₹2000</label>
+          <label><input type="checkbox" name="rent" value="2000-2500"> ₹2000 - ₹2500</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Facilities</h3>
+        <div class="facility-options">
+          <label><input type="checkbox" name="facilities" value="cleaning"> Cleaning</label>
+          <label><input type="checkbox" name="facilities" value="windows"> Windows</label>
+          <label><input type="checkbox" name="facilities" value="dustbin"> Dustbin</label>
+          <label><input type="checkbox" name="facilities" value="combine-utility"> Combine Utility</label>
+          <label><input type="checkbox" name="facilities" value="separate-utility"> Separate Utility</label>
+          <label><input type="checkbox" name="facilities" value="cupboard"> Cup Board</label>
+          <label><input type="checkbox" name="facilities" value="study-table"> Study Table</label>
+          <label><input type="checkbox" name="facilities" value="electric-geyser"> Electric Geyser</label>
+          <label><input type="checkbox" name="facilities" value="gas-geyser"> Gas Geyser</label>
+          <label><input type="checkbox" name="facilities" value="solar-water"> Solar Hot Water</label>
+      
+          <!-- Now the Apply Filters button directly inside here -->
+          <div class="apply-button-wrapper">
+            <button class="apply-filters-btn" onclick="fetchFilteredData()">Apply Filters</button>
+          </div>
+      
+        </div>
+      </div>
+      
+
+    <!-- Main Content starts here -->
+    <div id="mainContent">
+        <main>
+
+            <!-- Button to open sidebar -->
+            <button class="openbtn" onclick="openNav()">☰ Filter</button>
+
+            <div class="pg-list">
+                <div class="pg-card">
+                    <div class="carousel">
+                        <img src="img1.jpg" class="active" alt="Hostel Image 1">
+                        <img src="img2.jpg" alt="Hostel Image 2">
+                        <img src="img3.jpg" alt="Hostel Image 3">
+                        <button class="prev">&#10094;</button>
+                        <button class="next">&#10095;</button>
+                    </div>
+                    <h3>Sunrise Hostel</h3>
+                    <div class="availability-container">
+                        <p class="details"><b>Owner:</b> Rajesh Kumar</p>
+                        <p class="details"><b>Address:</b> 123, MG Road, Pune</p>
+                        <p class="details"><b>Price:</b> ₹5000/month</p>
+                        <p class="details"><b>Facilities:</b> Wi-Fi, AC, Laundry, Food, 24/7 Security</p>
+                        <p class="details"><b>Vacancy:</b> 5 rooms available</p>
+                        <div class="bed-availability" id="bedStatus"></div>
+                    </div>
+                    <a href="3dmodel.html" class="view-3d-btn">View 3D Model</a>
+                    <a href="#" class="view-proceed-btn">Proceed to checkout</a>
+                </div>
+            </div>
+
+        </main>
+    </div> <!-- End of mainContent -->
+</body>
+
+
+    <script>
+
+
+
+            // When page loads
+            window.onload = function() {
+                document.getElementById('mySidenav').style.width = "0"; // Hide Sidebar by setting width 0
+            };
+
+            // When Filter button is clicked
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "300px"; // Open Sidebar
+                document.getElementById("mainContent").style.marginLeft = "300px"; // Adjust main content
+                document.querySelector('.openbtn').style.display = 'none'; // Hide Filter button
+            }
+
+            // When Close button is clicked
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0"; // Close Sidebar
+                document.getElementById("mainContent").style.marginLeft = "0"; // Reset main content
+                document.querySelector('.openbtn').style.display = 'block'; // Show Filter button
+            }
+
+
+
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const rentSlider = document.getElementById("rentRange");
+                const rentValue = document.getElementById("rentValue");
+
+                if (rentSlider && rentValue) {
+                rentSlider.addEventListener("input", function () {
+                    rentValue.textContent = `₹${rentSlider.value}`;
+                });
+                }
+            });
+
+
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+    const accommodationCheckboxes = document.querySelectorAll('input[name="accommodation"]');
+    const suitableCheckboxes = document.querySelectorAll('input[name="suitable"]');
+    const rentCheckboxes = document.querySelectorAll('input[name="rent"]');
+    const facilitiesCheckboxes = document.querySelectorAll('input[name="facilities"]');
+
+    // Apply button
+    const applyButton = document.getElementById('applyFiltersBtn');
+    if (applyButton) {
+        applyButton.addEventListener('click', fetchFilteredData);
+    }
+
+    async function fetchFilteredData() {
+        const selectedAccommodation = Array.from(accommodationCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        const selectedSuitable = Array.from(suitableCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        const selectedRent = Array.from(rentCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        const selectedFacilities = Array.from(facilitiesCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        let minRent = null;
+        let maxRent = null;
+        if (selectedRent.length > 0) {
+            const rentRange = selectedRent[0].split('-');
+            minRent = parseInt(rentRange[0].replace(/[^\d]/g, ''), 10);
+            maxRent = parseInt(rentRange[1].replace(/[^\d]/g, ''), 10);
+        }
+
+        const requestBody = {
+            accommodation: selectedAccommodation[0] || null, // Typo fixed (you had "accomodation")
+            suitableFor: selectedSuitable[0] || null,
+            minRent: minRent,
+            maxRent: maxRent,
+            facilities: selectedFacilities
+        };
+
+        console.log("Sending to backend:", requestBody);
+
+        try {
+            const response = await fetch('/api/your-filter-endpoint', {  // <-- Update your Spring Boot API endpoint here
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network error: ' + response.status);
+            }
+
+            const data = await response.json();
+            console.log("Filtered PGs:", data);
+
+            displayFilteredData(data);
+        } catch (error) {
+            console.error('Error fetching PGs:', error);
+        }
+    }
+
+    function displayFilteredData(data) {
+        const mainContent = document.getElementById('mainContent');
+        mainContent.innerHTML = "";
+
+        if (!data || data.length === 0) {
+            mainContent.innerHTML = "<p>No PGs found matching your filters.</p>";
+            return;
+        }
+
+        data.forEach(pg => {
+            const pgCard = document.createElement('div');
+            pgCard.classList.add('pg-card'); // You can style this class using CSS
+
+            pgCard.innerHTML = `
+                <h3>${pg.clRlocation || 'No Location'}</h3>
+                <p><strong>Accommodation:</strong> ${pg.clRaccommodation || 'N/A'}</p>
+                <p><strong>Suitable For:</strong> ${pg.clRsuitablefor || 'N/A'}</p>
+                <p><strong>Rent:</strong> ₹${pg.clRrent || 'N/A'}</p>
+                <p><strong>Facilities:</strong> ${pg.clRfacilities || 'N/A'}</p>
+            `;
+
+            mainContent.appendChild(pgCard);
+        });
+    }
+});
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let role = localStorage.getItem("role");
+            if (!role) {
+                alert("You are not logged in! Redirecting to login...");
+                window.location.href = "login.html";
+                return;
+            }
+    
+            let submitPGButton = document.querySelector(".submit-btn");
+            if (role.toLowerCase() === "student") {
+                submitPGButton.style.display = "none";
+            }
+    
+            // Fetch PG data from backend
+            fetch("http://localhost:8085/rooms/rooms-with-beds")
+                .then(response => response.json())
+                .then(data => {
+                    const pgList = document.querySelector(".pg-list");
+                    pgList.innerHTML = ""; // Clear default/demo card
+    
+                    console.log("PG data from backend:", data); // Debug output
+    
+                    if (!Array.isArray(data) || data.length === 0) {
+                        pgList.innerHTML = "<p>No PG listings found.</p>";
+                        return;
+                    }
+    
+                    data.forEach(pg => {
+                        const bedStatusHTML = (pg.beds || []).map(bed => {
+                            const className = bed.status === "Available" ? "unbooked" : "booked";
+                            return `<div class="bed ${className}" title="Bed ${bed.bid} - ${bed.status}"></div>`;
+                        }).join("");
+    
+                        const image = (pg.images?.[0])
+                        ? `data:image/jpeg;base64,${pg.images[0]}`
+                            : "placeholder.jpg"; // Ensure this exists in your project
+    
+                        const cardHTML = `
+                            <div class="pg-card">
+                                <div class="carousel">
+                                    <img src="${image}" class="active" alt="Hostel Image">
+                                    <button class="prev">&#10094;</button>
+                                    <button class="next">&#10095;</button>
+                                </div>
+                                <h3>${pg.cl_rname || "PG Name"}</h3>
+                                <div class="availability-container">
+                                    <p class="details"><b>Owner:</b> ${pg.cl_ownername || "Owner"}</p>
+                                    <p class="details"><b>Address:</b> ${pg.cl_rlocation || "N/A"}</p>
+                                    <p class="details"><b>Price:</b> ₹${pg.cl_rrent || "N/A"}/month</p>
+                                    <p class="details"><b>Facilities:</b> ${pg.cl_rfacilities || "N/A"}</p>
+                                    <p class="details"><b>Floor:</b> ${pg.cl_rfloor || "N/A"}</p>
+                                    <div class="bed-availability">${bedStatusHTML}</div>
+                                </div>
+                              
+                                <a href="3dmodel.html" class="view-3d-btn">View 3D Model</a>
+                            </div>
+                        `       ;
+                        pgList.innerHTML += cardHTML;
+                    });
+    
+                    enableCarousels();
+                })
+                .catch(error => {
+                    console.error("Error fetching PG data:", error);
+                    const pgList = document.querySelector(".pg-list");
+                    pgList.innerHTML = "<p>Unable to fetch PG listings at this time. Please try again later.</p>";
+                });
+    
+            function enableCarousels() {
+                document.querySelectorAll(".carousel").forEach(carousel => {
+                    const images = carousel.querySelectorAll("img");
+                    const prevBtn = carousel.querySelector(".prev");
+                    const nextBtn = carousel.querySelector(".next");
+                    let currentIndex = 0;
+    
+                    function showImage(index) {
+                        images.forEach(img => img.classList.remove("active"));
+                        images[index].classList.add("active");
+                    }
+    
+                    prevBtn.addEventListener("click", () => {
+                        currentIndex = (currentIndex - 1 + images.length) % images.length;
+                        showImage(currentIndex);
+                    });
+    
+                    nextBtn.addEventListener("click", () => {
+                        currentIndex = (currentIndex + 1) % images.length;
+                        showImage(currentIndex);
+                    });
+                });
+            }
+        });
+
+
+
+
+      
+    </script>
+    
+   
+</body>
+</html>
